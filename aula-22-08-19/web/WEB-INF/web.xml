@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <context-param>
+        <param-name>update</param-name>
+        <param-value>08-agosto-2019</param-value>
+    </context-param>
+    <context-param>
+        <param-name>login</param-name>
+        <param-value>login</param-value>
+    </context-param>
+    <context-param>
+        <param-name>senha</param-name>
+        <param-value>123456</param-value>
+    </context-param>
+    <filter>
+        <filter-name>Filtro</filter-name>
+        <filter-class>util.Filtro</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Filtro</filter-name>
+        <url-pattern>/menu.jsp</url-pattern>
+    </filter-mapping>
+    <servlet>
+        <servlet-name>s1</servlet-name>
+        <servlet-class>util.s1</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>s1</servlet-name>
+        <url-pattern>/s1</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>login.jsp</welcome-file>
+    </welcome-file-list>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/erro.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/erro.jsp</location>
+    </error-page>
+</web-app>
