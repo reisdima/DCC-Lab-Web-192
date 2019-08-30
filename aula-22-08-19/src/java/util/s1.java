@@ -53,7 +53,8 @@ public class s1 extends HttpServlet {
                 request.getRequestDispatcher("login.jsp").forward(request, response); //mudar de página
             }
         }
-        else if(origem == "menu"){
+        else if(origem.equals("menu")){
+            
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
         
