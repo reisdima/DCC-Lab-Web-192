@@ -14,6 +14,7 @@
         <% rotator.nextAd(); %>
     </head>
     <body>
+        <input type="text">
         <p class="big">AdRotator Example</p>
         <p>
             <a href="<jsp:getProperty name = "rotator" property = "link"/>">

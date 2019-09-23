@@ -29,9 +29,9 @@ public class s1 extends HttpServlet {
     ResultSet r;
     Statement s;
     String driver = "org.apache.derby.jdbc.ClientDriver";
-    String url = "jdbc:derby://localhost:1527/LabWeb192";
+    String url = "jdbc:derby://localhost:1527/caio";
     String user = "caio";
-    String senha = "admin";
+    String senha = "caio";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -93,7 +93,7 @@ public class s1 extends HttpServlet {
             Class.forName(driver);
             c = DriverManager.getConnection(url, user, senha);
             s = c.createStatement();
-            r = s.executeQuery("select * from USUARIO where matricula = " + matricula);
+            r = s.executeQuery("select * from USUARIO where MATRICULA = " + matricula);
             if(r.next()){
                 usuario = new Usuario();
                 usuario.setMatricula(r.getInt("MATRICULA"));

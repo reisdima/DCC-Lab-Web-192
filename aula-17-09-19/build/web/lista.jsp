@@ -6,11 +6,11 @@
 
 <%@page import="java.util.List"%>
 <%@page import="DAO.Usuario"%>
-<%@page import="Controllers.UsuarioControl"%>
+<%@page import="Controllers.UsuarioController"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-    UsuarioControl controlador = new UsuarioControl();
+    UsuarioController controlador = new UsuarioController();
     List<Usuario> usuarios = controlador.leBanco();
 %>
 <html>
@@ -27,6 +27,7 @@
             </tr>
             <%for (Usuario u : usuarios){%>
                 <tr>
+                    <td>oi</td>
                     <td><%=u.getNome()%></td>
                 </tr>
             <%}%>

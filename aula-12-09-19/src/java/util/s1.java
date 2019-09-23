@@ -29,9 +29,9 @@ public class s1 extends HttpServlet {
     ResultSet r;
     Statement s;
     String driver = "org.apache.derby.jdbc.ClientDriver";
-    String url = "jdbc:derby://localhost:1527/LabWeb192";
+    String url = "jdbc:derby://localhost:1527/caio";
     String user = "caio";
-    String senha = "admin";
+    String senha = "caio";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

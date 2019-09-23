@@ -23,9 +23,9 @@ public class UsuarioController {
     ResultSet r;
     Statement s;
     String driver = "org.apache.derby.jdbc.ClientDriver";
-    String url = "jdbc:derby://localhost:1527/LabWeb192";
+    String url = "jdbc:derby://localhost:1527/caio";
     String user = "caio";
-    String senha = "admin";
+    String senha = "caio";
     
     public List<Usuario> leBanco(){
         List<Usuario> usuarios = null;

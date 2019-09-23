@@ -6,33 +6,34 @@
 
 <%@page import="java.util.List"%>
 <%@page import="DAO.Usuario"%>
-<%@page import="Controllers.UsuarioControl"%>
+<%@page import="Controllers.UsuarioController"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-    UsuarioControl controlador = new UsuarioControl();
+    UsuarioController controlador = new UsuarioController();
     List<Usuario> usuarios = controlador.leBanco();
 %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <title>JSP Page</title>
     </head>
     <body>
         <a href="s1?origem=lista">Voltar ao menu</a>
         <br>
-        <table>
-            <tr>
-                <th>Usuario</th>
-            </tr>
+        <ul class="list-group col-md-4">
+            <li class="list-group-item">
+                Usuario
+            </li>
             <%for (Usuario u : usuarios){%>
-                <tr>
-                    <td><%=u.getNome()%></td>
-                </tr>
+            <li class="list-group-item">
+                <%=u.getNome()%>
+            </li>
             <%}%>
-            <tr>
-                <td></td>
-            </tr>
-        </table>
+        </ul>
     </body>
 </html>
