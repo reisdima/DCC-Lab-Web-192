@@ -8,6 +8,7 @@
 <%@page import="DAO.Usuario"%>
 <%@page import="Controllers.UsuarioController"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file = "cabecalho.jsp" %>
 <!DOCTYPE html>
 <%
     UsuarioController controlador = new UsuarioController();
@@ -23,7 +24,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <a href="s1?origem=lista">Voltar ao menu</a>
+        <button><a href="s1?origem=lista">Voltar ao menu</a></button>
         <br>
         <ul class="list-group col-md-4">
             <li class="list-group-item">

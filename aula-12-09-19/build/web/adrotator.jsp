@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file = "cabecalho.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,8 +15,8 @@
         <% rotator.nextAd(); %>
     </head>
     <body>
-        <input type="text">
         <p class="big">AdRotator Example</p>
+        <button><a class="nav-link" href="s1?origem=menu">Sair do sistema</a></button>
         <p>
             <a href="<jsp:getProperty name = "rotator" property = "link"/>">
                 <img src = "<jsp:getProperty name = "rotator" property = "image" />"

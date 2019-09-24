@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file = "cabecalho.jsp" %>
 <!DOCTYPE html>
 <%//throw new ServletException("teste"); %>
 <html>
@@ -22,7 +23,7 @@
             left: 50%;
             border: solid 1px black;
             text-align: center; 
-       }
+        }
     </style>
     <body>
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
