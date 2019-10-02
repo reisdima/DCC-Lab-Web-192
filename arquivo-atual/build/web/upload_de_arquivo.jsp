@@ -13,17 +13,32 @@
         <title>Página de upload</title>
     </head>
     <body>
+        <a class="nav-link" href="s1?origem=upload"> <button class="btn btn-info">Voltar ao menu</button></a>
         <div class="container col-md-12">
-            <a class="nav-link" href="s1?origem=upload"> <button class="btn btn-info">Voltar</button></a>
             <div class="jumbotron">
-                <h2>Formulário de envio de arquivo</h2>
-                <form method=POST action="s1">
-                    <div class="form-group col-md-4">
-                        <input class="form-control-file border" type="file" name="upfile">
+                <h3>Formulário de envio de arquivo</h3>
+                <div class="col-md-4" style="padding: 0px;">
+                    <form method=POST action="s1">
+                        <div class="form-group">
+                            <input class="form-control-file border" type="file" name="upfile">
+                        </div>
+                        <input type="hidden" value="upload_arquivo" name="origem">
+                        <button type="submit" class="btn btn-info">Submit</button>
+                    </form> 
+                </div>
+                <div>
+                    <% String tmp = (String) session.getAttribute("file");
+                       if(tmp != null){
+                           session.removeAttribute("file");
+                    %>
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-10">
+                            <a href="docs/local.pdf" download>Download do arquivo</a>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-info">Submit</button>
-                    <input type="hidden" value="upload" name="origem">
-                </form> 
+                    <% } %>
+                </div>
             </div>
         </div>
     </body>

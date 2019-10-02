@@ -29,16 +29,16 @@
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="s1?origem=menu">Sair do sistema</a>
+                <a class="nav-link" href="s1?origem=menu">Sair do sistema |</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="paginaNaoExistente">Link que não existe</a>
+                <a class="nav-link" href="paginaNaoExistente">Link que não existe |</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="lista.jsp">Exibir usuários</a>
+                <a class="nav-link" href="lista.jsp">Exibir usuários |</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="adrotator.jsp">Rotator</a>
+                <a class="nav-link" href="adrotator.jsp">Rotator |</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="upload_de_arquivo.jsp">Upload de arquivo</a>
