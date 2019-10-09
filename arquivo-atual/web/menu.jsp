@@ -3,11 +3,11 @@
     Created on : 15/08/2019, 21:55:26
     Author     : ice
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file = "cabecalho.jsp" %>
 <!DOCTYPE html>
 <%//throw new ServletException("teste"); %>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -45,6 +45,6 @@
               </li>
             </ul>
          </nav>
-            
+        <h2>Numero de usuarios: <%= request.getServletContext().getAttribute("userCouter")%></h2>
     </body>
 </html>

@@ -62,7 +62,6 @@ public class s1 extends HttpServlet {
             request.getSession().setAttribute("erro", "Sua sessão deve ter expirado");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
-        
         if("login".equals(origem)){
             //String senha = request.getServletContext().getInitParameter("senha");
             //String login = request.getServletContext().getInitParameter("login");
@@ -70,7 +69,6 @@ public class s1 extends HttpServlet {
             String matriculaFormulario = request.getParameter("login");
             String senhaFormulario = request.getParameter("senha");
             Usuario u = this.leBanco(Integer.parseInt(matriculaFormulario));
-            
             if(u != null){
                 String senhaUsuario = u.getSenha();
                 if(senhaUsuario.equals(senhaFormulario)){

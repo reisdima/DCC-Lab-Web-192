@@ -24,6 +24,9 @@
         <filter-name>Filtro</filter-name>
         <url-pattern>/lista.jsp</url-pattern>
     </filter-mapping>
+    <listener>
+        <listener-class>util.SessionLifeCycleEventDemo</listener-class>
+    </listener>
     <servlet>
         <servlet-name>s1</servlet-name>
         <servlet-class>util.s1</servlet-class>
