@@ -65,18 +65,25 @@ public class s1 extends HttpServlet {
         if("login".equals(origem)){
             //String senha = request.getServletContext().getInitParameter("senha");
             //String login = request.getServletContext().getInitParameter("login");
-            
+            Usuario u = null;
             String matriculaFormulario = request.getParameter("login");
             String senhaFormulario = request.getParameter("senha");
-            Usuario u = this.leBanco(Integer.parseInt(matriculaFormulario));
-            if(u != null){
-                String senhaUsuario = u.getSenha();
-                if(senhaUsuario.equals(senhaFormulario)){
-                    request.getSession().setAttribute("ativo", "esta ativo");
-                    request.getRequestDispatcher("menu.jsp").forward(request, response); //mudar de página
-                }else{
-                    // incluir o atributo erro no objeto session
-                    request.getSession().setAttribute("erro", "senha errada");
+            if(isInteger(matriculaFormulario)){
+                u = this.leBanco(Integer.parseInt(matriculaFormulario));
+                if(u != null){
+                    String senhaUsuario = u.getSenha();
+                    if(senhaUsuario.equals(senhaFormulario)){
+                        request.getSession().setAttribute("ativo", "esta_ativo");
+                        request.getRequestDispatcher("menu.jsp").forward(request, response); //mudar de página
+                    }
+                    else{
+                        // incluir o atributo erro no objeto session
+                        request.getSession().setAttribute("erro", "senha errada");
+                        request.getRequestDispatcher("login.jsp").forward(request, response); //mudar de página
+                    }
+                }
+                else{
+                    request.getSession().setAttribute("erro", "usuario nao existe");
                     request.getRequestDispatcher("login.jsp").forward(request, response); //mudar de página
                 }
             }
@@ -95,7 +102,7 @@ public class s1 extends HttpServlet {
         else if(origem.equals("upload_arquivo")){
             String file_name = "local.pdf";
             File file = null;
-            int maxxFileSize = 10000*1024;
+            int maxxFileSize = 10000 * 1024;
             int maxMemSize = 1000 *1024;
             ServletContext servletContext = getServletContext();
             String filePath = "/ice/NetBeansProjects/DCC-Lab-Web-192/arquivo-atual/web/docs";
@@ -156,6 +163,29 @@ public class s1 extends HttpServlet {
             System.out.println("e");
         }
         return usuario;
+    }
+    public static boolean isInteger(String str) {
+        if (str == null) {
+            return false;
+        }
+        int length = str.length();
+        if (length == 0) {
+            return false;
+        }
+        int i = 0;
+        if (str.charAt(0) == '-') {
+            if (length == 1) {
+                return false;
+            }
+            i = 1;
+        }
+        for (; i < length; i++) {
+            char c = str.charAt(i);
+            if (c < '0' || c > '9') {
+                return false;
+            }
+        }
+        return true;
     }
     
     

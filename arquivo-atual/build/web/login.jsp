@@ -25,7 +25,8 @@
                 <% if(session.getAttribute("erro") != null){%>
                 <p> <%= session.getAttribute("erro") %>
                     <% session.removeAttribute("erro");%>
-                    <%}%></p>
+                </p>
+                <%}%>
                 <h1>Tela de Login</h1>
                 <form method=POST ACTION='s1'>
                     <div class="form-group col-md-4">
