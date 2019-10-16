@@ -44,14 +44,25 @@ public class SessionLifeCycleEventDemo implements ServletContextListener, HttpSe
 
     @Override
     public void attributeAdded(HttpSessionBindingEvent event) {
-        this.counter += 1;
-        servletContext.setAttribute("userCouter", Integer.toString(counter));
+        if(event.getName().equals("ativo")){
+            counter = Integer.parseInt((String) event.getSession().getServletContext().getAttribute("userCouter"));
+            counter += 1;
+            servletContext.setAttribute("userCouter", counter);
+        }
+//        this.counter += 1;
+//        servletContext.setAttribute("userCouter", Integer.toString(counter));
     }
 
     @Override
     public void attributeRemoved(HttpSessionBindingEvent event) {
-        this.counter -= 1;
-        servletContext.setAttribute("userCouter", Integer.toString(counter));
+        if(event.getName().equals("ativo")){
+            counter = Integer.parseInt((String) event.getSession().getServletContext().getAttribute("userCouter"));
+            counter -= 1;
+            servletContext.setAttribute("userCouter", counter);
+        }
+        
+//        this.counter -= 1;
+//        servletContext.setAttribute("userCouter", Integer.toString(counter));
     }
 
     @Override
