@@ -5,10 +5,10 @@
  */
 package util;
 
-import DAO.Usuario;
+import DAO.UsuarioDAO;
+import Model.Usuario;
 import java.io.File;
 import java.io.IOException;
-import java.rmi.ServerException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -36,13 +36,6 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
  */
 
 public class s1 extends HttpServlet {
-    Connection c;
-    ResultSet r;
-    Statement s;
-    String driver = "org.apache.derby.jdbc.ClientDriver";
-    String url = "jdbc:derby://localhost:1527/LabWeb192";
-    String user = "caio";
-    String senha = "admin";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -62,37 +55,36 @@ public class s1 extends HttpServlet {
             request.getSession().setAttribute("erro", "Sua sessão deve ter expirado");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
+        //A requisição veio da tela de login
         if("login".equals(origem)){
-            //String senha = request.getServletContext().getInitParameter("senha");
-            //String login = request.getServletContext().getInitParameter("login");
             Usuario u = null;
             String matriculaFormulario = request.getParameter("login");
             String senhaFormulario = request.getParameter("senha");
             if(isInteger(matriculaFormulario)){
-                u = this.leBanco(Integer.parseInt(matriculaFormulario));
-                if(u != null){
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                u = usuarioDAO.getUsuario(Integer.parseInt(matriculaFormulario));
+                if(u != null){          // Se o usuário existir
                     String senhaUsuario = u.getSenha();
-                    if(senhaUsuario.equals(senhaFormulario)){
+                    if(senhaUsuario.equals(senhaFormulario)){   // Verifica senha
                         request.getSession().setAttribute("ativo", "esta_ativo");
                         request.getRequestDispatcher("menu.jsp").forward(request, response); //mudar de página
                     }
-                    else{
-                        // incluir o atributo erro no objeto session
+                    else{   // Senha errada, incluir o atributo erro no objeto session
                         request.getSession().setAttribute("erro", "senha errada");
                         request.getRequestDispatcher("login.jsp").forward(request, response); //mudar de página
                     }
                 }
-                else{
+                else{   // Usuario nõ existe no banco
                     request.getSession().setAttribute("erro", "usuario nao existe");
                     request.getRequestDispatcher("login.jsp").forward(request, response); //mudar de página
                 }
             }
-            else{
+            else{       // Matricula fornecida não é um inteiro
                 request.getSession().setAttribute("erro", "usuario nao existe");
                 request.getRequestDispatcher("login.jsp").forward(request, response); //mudar de página
             }
         }
-        else if(origem.equals("menu")){
+        else if(origem.equals("menu")){     // A requisição veio do menu
             session.removeAttribute("ativo");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
@@ -146,24 +138,6 @@ public class s1 extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
     }
     
-    public Usuario leBanco(int matricula){
-        Usuario usuario = null;
-        try{
-            Class.forName(driver);
-            c = DriverManager.getConnection(url, user, senha);
-            s = c.createStatement();
-            r = s.executeQuery("select * from USUARIO where matricula = " + matricula);
-            if(r.next()){
-                usuario = new Usuario();
-                usuario.setMatricula(r.getInt("MATRICULA"));
-                usuario.setNome(r.getString("NOME"));
-                usuario.setSenha(r.getString("SENHA"));
-            }
-        }catch (ClassNotFoundException | SQLException e){
-            System.out.println("e");
-        }
-        return usuario;
-    }
     public static boolean isInteger(String str) {
         if (str == null) {
             return false;

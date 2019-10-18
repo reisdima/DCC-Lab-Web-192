@@ -4,15 +4,16 @@
     Author     : ice
 --%>
 
+<%@page import="Model.Usuario"%>
+<%@page import="DAO.UsuarioDAO"%>
 <%@page import="java.util.List"%>
-<%@page import="DAO.Usuario"%>
 <%@page import="Controllers.UsuarioController"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file = "cabecalho.jsp" %>
 <!DOCTYPE html>
 <%
-    UsuarioController controlador = new UsuarioController();
-    List<Usuario> usuarios = controlador.leBanco();
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    List<Usuario> usuarios = usuarioDAO.getAll();
 %>
 <html>
     <head>
