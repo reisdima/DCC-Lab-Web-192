@@ -18,7 +18,7 @@
             <div class="jumbotron">
                 <h3>Formulário de envio de arquivo</h3>
                 <div class="col-md-4" style="padding: 0px;">
-                    <form method=POST action='s1'>
+                    <form method=POST action='teste' enctype="multipart/form-data">
                         <div class="form-group">
                             <input class="form-control-file border" type="file" name="upfile">
                         </div>
@@ -34,7 +34,7 @@
                     <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-10">
-                            <a href="docs/local.pdf" download>Download do arquivo</a>
+                            <a href="uploads/local.pdf" download>Download do arquivo</a>
                         </div>
                     </div>
                     <% } %>

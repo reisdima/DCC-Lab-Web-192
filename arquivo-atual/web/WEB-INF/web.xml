@@ -35,6 +35,10 @@
         <servlet-name>listaUsuarios</servlet-name>
         <servlet-class>util.listaUsuarios</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FileUploadController</servlet-name>
+        <servlet-class>Controllers.FileUploadController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>s1</servlet-name>
         <url-pattern>/s1</url-pattern>
@@ -42,6 +46,10 @@
     <servlet-mapping>
         <servlet-name>listaUsuarios</servlet-name>
         <url-pattern>/listaUsuarios</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FileUploadController</servlet-name>
+        <url-pattern>/FileUploadController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
