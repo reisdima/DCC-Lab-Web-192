@@ -24,7 +24,9 @@ public class SessionLifeCycleEventDemo implements ServletContextListener, HttpSe
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         servletContext = sce.getServletContext();
-        servletContext.setAttribute("userCouter", Integer.toString(counter));
+        servletContext.setAttribute("userCounter", Integer.toString(counter));
+        sce.getServletContext().setAttribute("userCounter", counter);
+        System.out.println("teste");
     }
 
     @Override
@@ -45,12 +47,10 @@ public class SessionLifeCycleEventDemo implements ServletContextListener, HttpSe
     @Override
     public void attributeAdded(HttpSessionBindingEvent event) {
         if(event.getName().equals("ativo")){
-            counter = (int) (event.getSession().getServletContext().getAttribute("userCouter"));
+            counter = (int) event.getSession().getServletContext().getAttribute("userCounter");
             counter += 1;
-            servletContext.setAttribute("userCouter", counter);
+            servletContext.setAttribute("userCounter", counter);
         }
-//        this.counter += 1;
-//        servletContext.setAttribute("userCouter", Integer.toString(counter));
     }
 
     @Override
@@ -60,9 +60,6 @@ public class SessionLifeCycleEventDemo implements ServletContextListener, HttpSe
             counter -= 1;
             servletContext.setAttribute("userCouter", counter);
         }
-        
-//        this.counter -= 1;
-//        servletContext.setAttribute("userCouter", Integer.toString(counter));
     }
 
     @Override

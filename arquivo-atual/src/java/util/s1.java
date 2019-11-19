@@ -9,11 +9,6 @@ import DAO.UsuarioDAO;
 import Model.Usuario;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -34,8 +29,8 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
  *
  * @author ice
  */
-
 public class s1 extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,58 +42,74 @@ public class s1 extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, FileUploadException, Exception {
-        
+
         String origem = request.getParameter("origem");
         HttpSession session = request.getSession(true);
-        
-        if(session.getAttribute("ativo") == null && !origem.equals("login")){
+
+        if (session.getAttribute("ativo") == null && !origem.equals("login")) {
             request.getSession().setAttribute("erro", "Sua sessão deve ter expirado");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
         //A requisição veio da tela de login
-        if("login".equals(origem)){
+        if ("login".equals(origem)) {
             Usuario u = null;
             String matriculaFormulario = request.getParameter("login");
             String senhaFormulario = request.getParameter("senha");
-            if(isInteger(matriculaFormulario)){
+            if (isInteger(matriculaFormulario)) {
                 UsuarioDAO usuarioDAO = new UsuarioDAO();
                 u = usuarioDAO.getUsuario(Integer.parseInt(matriculaFormulario));
-                if(u != null){          // Se o usuário existir
+                if (u != null) {          // Se o usuário existir
                     String senhaUsuario = u.getSenha();
-                    if(senhaUsuario.equals(senhaFormulario)){   // Verifica senha
+                    if (senhaUsuario.equals(senhaFormulario)) {   // Verifica senha
                         request.getSession().setAttribute("ativo", "esta_ativo");
                         request.getRequestDispatcher("menu.jsp").forward(request, response); //mudar de página
-                    }
-                    else{   // Senha errada, incluir o atributo erro no objeto session
+                    } else {   // Senha errada, incluir o atributo erro no objeto session
                         request.getSession().setAttribute("erro", "senha errada");
                         request.getRequestDispatcher("login.jsp").forward(request, response); //mudar de página
                     }
-                }
-                else{   // Usuario nõ existe no banco
+                } else {   // Usuario nõ existe no banco
                     request.getSession().setAttribute("erro", "usuario nao existe");
                     request.getRequestDispatcher("login.jsp").forward(request, response); //mudar de página
                 }
-            }
-            else{       // Matricula fornecida não é um inteiro
+            } else {       // Matricula fornecida não é um inteiro
                 request.getSession().setAttribute("erro", "usuario nao existe");
                 request.getRequestDispatcher("login.jsp").forward(request, response); //mudar de página
             }
-        }
-        else if(origem.equals("menu")){     // A requisição veio do menu
+        } else if (origem.equals("menu")) {     // A requisição veio do menu
             session.removeAttribute("ativo");
             request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
-        else if(origem.equals("lista") || origem.equals("rotator") || origem.equals("upload")){
+        } else if (origem.equals("lista") || origem.equals("rotator") || origem.equals("upload")) {
             request.getRequestDispatcher("menu.jsp").forward(request, response);
-        }
-        else if(origem.equals("upload_arquivo")){
+        } else if (origem.equals("upload_arquivo")) {
+            
+            String filePath = "/ice/NetBeansProjects/DCC-Lab-Web-192/arquivo-atual/web/docs";
+            try {
+                List<FileItem> multiparts = new ServletFileUpload(
+                                            new DiskFileItemFactory())
+                                            .parseRequest((RequestContext) request);
+
+                for(FileItem item : multiparts){
+                    if(!item.isFormField()){
+                        String name = "Teste.pdf";
+                        item.write( new File(filePath + File.separator + name));
+                    }
+                }
+               //File uploaded successfully
+               request.setAttribute("message", "File Uploaded Successfully");
+            } catch (Exception ex) {
+               request.setAttribute("message", "File Upload Failed due to " + ex);
+            }
+     
+
+            
+            /*
             String file_name = "local.pdf";
             File file = null;
             int maxxFileSize = 10000 * 1024;
-            int maxMemSize = 1000 *1024;
+            int maxMemSize = 1000 * 1024;
             ServletContext servletContext = getServletContext();
             String filePath = "/ice/NetBeansProjects/DCC-Lab-Web-192/arquivo-atual/web/docs";
-            
+
             DiskFileItemFactory factory = new DiskFileItemFactory();
             // Configure a repository (to ensure a secure temp location is used)
             factory.setSizeThreshold(maxMemSize);
@@ -107,37 +118,38 @@ public class s1 extends HttpServlet {
             ServletFileUpload upload = new ServletFileUpload(factory);
             upload.setFileSizeMax(maxxFileSize);
             // Parse the request
-            List fileItems = null;
-            try{
-                fileItems = upload.parseRequest((RequestContext) request);
-            } catch(FileUploadException e){
-                
-            }
-            
-            Iterator i = fileItems.iterator();
-            if(i.hasNext()){
-                FileItem fi = (FileItem) i.next();
-                if(!fi.isFormField()){
-                    String fileName = fi.getFieldName();
-                    if(fileName.lastIndexOf("\\") >= 0){
-                        file = new File(filePath + fileName);
-                    }
-                    else{
-                        file = new File(filePath + fileName);
-                    }
-                    try{
-                        fi.write(file);
-                    }catch(Exception ex){
-                        Logger.getLogger(s1.class.getName()).log(Level.SEVERE, null, ex);
+            List<FileItem> fileItens = null;
+            try {
+                fileItens = upload.parseRequest((RequestContext) request);
+                for (FileItem item : fileItens) {
+                    if (!item.isFormField()) {
+                        String name = "Teste.pdf";
+                        item.write(new File(filePath + File.separator + name));
+                        
+                        String fileName = item.getFieldName();
+                        if (fileName.lastIndexOf("\\") >= 0) {
+                            file = new File(filePath + fileName);
+                        } else {
+                            file = new File(filePath + fileName);
+                        }
+                        try {
+                            item.write(file);
+                        } catch (Exception ex) {
+                            Logger.getLogger(s1.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
+            } catch (FileUploadException e) {
+
             }
+            */
             
+            request.getRequestDispatcher("upload_de_arquivo.jsp").forward(request, response);
         }
-        
+
         response.setContentType("text/html;charset=UTF-8");
     }
-    
+
     public static boolean isInteger(String str) {
         if (str == null) {
             return false;
@@ -161,8 +173,6 @@ public class s1 extends HttpServlet {
         }
         return true;
     }
-    
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

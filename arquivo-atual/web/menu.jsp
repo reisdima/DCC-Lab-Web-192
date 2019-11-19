@@ -41,6 +41,6 @@
               </li>
             </ul>
          </nav>
-        <h2>Numero de usuarios: <%= request.getServletContext().getAttribute("userCouter")%></h2>
+        <h2>Numero de usuarios: <%= request.getServletContext().getAttribute("userCounter")%></h2>
     </body>
 </html>
